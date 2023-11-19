@@ -15,6 +15,7 @@ public class CalculoCircutoConImagen extends javax.swing.JFrame {
      */
     public CalculoCircutoConImagen() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -26,15 +27,26 @@ public class CalculoCircutoConImagen extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton2 = new javax.swing.JButton();
+        buttonRegresarCCCI = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
-        jButton2.setText("Regresar");
+        buttonRegresarCCCI.setText("Regresar");
+        buttonRegresarCCCI.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonRegresarCCCIActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("salir");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Calcular");
 
@@ -43,8 +55,8 @@ public class CalculoCircutoConImagen extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(225, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                .addContainerGap(495, Short.MAX_VALUE)
+                .addComponent(buttonRegresarCCCI)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
                 .addContainerGap())
@@ -58,15 +70,25 @@ public class CalculoCircutoConImagen extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
+                    .addComponent(buttonRegresarCCCI)
                     .addComponent(jButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 210, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 322, Short.MAX_VALUE)
                 .addComponent(jButton3)
                 .addGap(36, 36, 36))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void buttonRegresarCCCIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRegresarCCCIActionPerformed
+        SeleccionTipoCirciuto ventanaTC= new SeleccionTipoCirciuto();
+        ventanaTC.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_buttonRegresarCCCIActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -104,8 +126,8 @@ public class CalculoCircutoConImagen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonRegresarCCCI;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     // End of variables declaration//GEN-END:variables
 }
