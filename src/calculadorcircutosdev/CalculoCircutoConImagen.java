@@ -13,7 +13,7 @@ import java.util.logging.Logger;
  */
 public class CalculoCircutoConImagen extends javax.swing.JFrame {
     private int caseCircuit=0;
-    private int numElemtos=0;
+    private int numElemtos=1;
     
     
     public CalculoCircutoConImagen() {
@@ -28,10 +28,8 @@ public class CalculoCircutoConImagen extends javax.swing.JFrame {
         this.caseCircuit= caseCircuitInput;
         initComponents();
         this.setLocationRelativeTo(null);
-        System.out.println(caseCircuit+"  "+caseCircuitInput);
     }
     private String updateCircuitImage() {
-        System.out.println(caseCircuit);
         switch (caseCircuit) {
             case 1:
                 return "/Images/Circuit/SeriesResist.png";
@@ -42,6 +40,12 @@ public class CalculoCircutoConImagen extends javax.swing.JFrame {
             default:
                 return "/Images/Circuit/SerieCap.png";
             }
+    }
+    private String updateTextUnit(){
+        if(caseCircuit<3)
+            return "Resisencia";
+        else
+            return "Capacitancia";
     }
 
     /**
@@ -55,7 +59,7 @@ public class CalculoCircutoConImagen extends javax.swing.JFrame {
 
         buttonRegresarCCCI = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        buttonCalcular = new javax.swing.JButton();
         imageCircuit = new javax.swing.JLabel();
         textoUnides = new javax.swing.JLabel();
         nComponetes = new javax.swing.JSpinner();
@@ -81,7 +85,12 @@ public class CalculoCircutoConImagen extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("Calcular");
+        buttonCalcular.setText("Calcular");
+        buttonCalcular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCalcularActionPerformed(evt);
+            }
+        });
 
         String directions=updateCircuitImage();
         imageCircuit.setIcon(new javax.swing.ImageIcon(getClass().getResource(directions)));
@@ -91,9 +100,22 @@ public class CalculoCircutoConImagen extends javax.swing.JFrame {
             }
         });
 
-        textoUnides.setText("Capacitancia");
+        textoUnides.setText(updateTextUnit());
 
         nComponetes.setModel(new javax.swing.SpinnerNumberModel(0, 0, 100000, 5));
+        nComponetes.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                nComponetesStateChanged(evt);
+            }
+        });
+        nComponetes.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                nComponetesKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                nComponetesKeyReleased(evt);
+            }
+        });
 
         escalaNC.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "E", "P", "T", "G", "M", "k", "h", "da", "d", "c", "m", "µ", "n", "p", "f", "a" }));
         escalaNC.addActionListener(new java.awt.event.ActionListener() {
@@ -105,6 +127,7 @@ public class CalculoCircutoConImagen extends javax.swing.JFrame {
         jLabel2.setText("Escala ");
 
         buttonAddElement.setText("+");
+        buttonAddElement.setEnabled(false);
         buttonAddElement.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonAddElementActionPerformed(evt);
@@ -117,6 +140,7 @@ public class CalculoCircutoConImagen extends javax.swing.JFrame {
                 buttonDeleteElementActionPerformed(evt);
             }
         });
+        buttonDeleteElement.setVisible(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -135,7 +159,7 @@ public class CalculoCircutoConImagen extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(72, 72, 72)
-                                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(buttonCalcular, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(114, 114, 114)
                                         .addComponent(buttonDeleteElement, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -181,7 +205,7 @@ public class CalculoCircutoConImagen extends javax.swing.JFrame {
                             .addComponent(nComponetes, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(buttonDeleteElement, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 230, Short.MAX_VALUE)
-                .addComponent(jButton3)
+                .addComponent(buttonCalcular)
                 .addGap(36, 36, 36))
         );
 
@@ -215,27 +239,55 @@ public class CalculoCircutoConImagen extends javax.swing.JFrame {
     }//GEN-LAST:event_escalaNCActionPerformed
 
     private void buttonAddElementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddElementActionPerformed
-        // TODO add your handling code here:
+        numElemtos++;
+        buttonDeleteElement.setVisible(true);
+        //falta agregar el dato en lista/fila/cola(a preferencia del programador) 
     }//GEN-LAST:event_buttonAddElementActionPerformed
 
     private void buttonDeleteElementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteElementActionPerformed
-        
+        numElemtos--;
+        if (numElemtos<2){
+            buttonDeleteElement.setVisible(false);
+        }
+        //falta eliminar el dato en lista/fila/cola(a preferencia del programador) 
     }//GEN-LAST:event_buttonDeleteElementActionPerformed
 
     private void imageCircuitKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_imageCircuitKeyReleased
         updateCircuitImage();
     }//GEN-LAST:event_imageCircuitKeyReleased
 
+    private void buttonCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCalcularActionPerformed
+        // evaluar que la lista/fila/cola(a preferencia del programador) no este vacia, si lo esta gurdar el dato de nComponetesState siempre y cunado se adistinto de cero
+        // evaluar el tipo de circuito, para saber que formula usar con ayuda de la variable caseCircuit
+        // pasar los datos almacenados a la funcion hasta que no falte ninguno
+        // mostrar el resultado final de la operacion 
+    }//GEN-LAST:event_buttonCalcularActionPerformed
+
+    private void nComponetesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nComponetesKeyReleased
+        
+    }//GEN-LAST:event_nComponetesKeyReleased
+
+    private void nComponetesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nComponetesKeyPressed
+        
+    }//GEN-LAST:event_nComponetesKeyPressed
+
+    private void nComponetesStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_nComponetesStateChanged
+        if (!(nComponetes.getValue().equals(0))){
+            buttonAddElement.setEnabled(true);
+        }else
+            buttonAddElement.setEnabled(false);
+    }//GEN-LAST:event_nComponetesStateChanged
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAddElement;
+    private javax.swing.JButton buttonCalcular;
     private javax.swing.JButton buttonDeleteElement;
     private javax.swing.JButton buttonRegresarCCCI;
     private javax.swing.JComboBox<String> escalaNC;
     private javax.swing.JLabel imageCircuit;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JSpinner nComponetes;
     private javax.swing.JLabel textoUnides;
