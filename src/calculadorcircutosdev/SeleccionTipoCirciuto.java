@@ -4,12 +4,15 @@
  */
 package calculadorcircutosdev;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author dani-ideas
  */
 public class SeleccionTipoCirciuto extends javax.swing.JFrame {
-
+    private int caseCircuit=0;
     /**
      * Creates new form SeleccionTipoCirciuto
      */
@@ -72,6 +75,7 @@ public class SeleccionTipoCirciuto extends javax.swing.JFrame {
         });
 
         buttonGroup1.add(capSerie);
+        capSerie.setSelected(true);
         capSerie.setText("Serie");
         capSerie.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -178,10 +182,16 @@ public class SeleccionTipoCirciuto extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    @SuppressWarnings("FinalizeCalledExplicitly")
     private void buttonRegresarSTCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRegresarSTCActionPerformed
         Presentacion ventanaP= new Presentacion();
         ventanaP.setVisible(true);
         this.setVisible(false);
+         try {
+            this.finalize();
+        } catch (Throwable ex) {
+            Logger.getLogger(CalculoCircutoConImagen.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_buttonRegresarSTCActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -189,61 +199,28 @@ public class SeleccionTipoCirciuto extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void buttonGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGenerarActionPerformed
-        CalculoCircutoConImagen ventanaCCCI= new CalculoCircutoConImagen();
+        CalculoCircutoConImagen ventanaCCCI= new CalculoCircutoConImagen(caseCircuit);
         ventanaCCCI.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_buttonGenerarActionPerformed
 
     private void resSerieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resSerieActionPerformed
-        // TODO add your handling code here:
+        caseCircuit =1;
     }//GEN-LAST:event_resSerieActionPerformed
 
     private void resParaleloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resParaleloActionPerformed
-        // TODO add your handling code here:
+        caseCircuit =2;
     }//GEN-LAST:event_resParaleloActionPerformed
 
     private void capParaleloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_capParaleloActionPerformed
-        // TODO add your handling code here:
+        caseCircuit =3;
     }//GEN-LAST:event_capParaleloActionPerformed
 
     private void capSerieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_capSerieActionPerformed
-        // TODO add your handling code here:
+        caseCircuit =4;
     }//GEN-LAST:event_capSerieActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SeleccionTipoCirciuto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SeleccionTipoCirciuto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SeleccionTipoCirciuto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SeleccionTipoCirciuto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new SeleccionTipoCirciuto().setVisible(true);
-            }
-        });
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonGenerar;
