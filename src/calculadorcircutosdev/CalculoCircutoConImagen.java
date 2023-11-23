@@ -6,7 +6,7 @@ package calculadorcircutosdev;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import java.util.Stack;
 /**
  *
  * @author dani-ideas
@@ -14,7 +14,8 @@ import java.util.logging.Logger;
 public class CalculoCircutoConImagen extends javax.swing.JFrame {
     private int caseCircuit=0;
     private int numElemtos=1;
-    
+    double temp;
+    private Stack<Double> datos = new Stack<>();
     
     public CalculoCircutoConImagen() {
         initComponents();
@@ -47,7 +48,6 @@ public class CalculoCircutoConImagen extends javax.swing.JFrame {
         else
             return "Capacitancia";
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -67,7 +67,9 @@ public class CalculoCircutoConImagen extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         buttonAddElement = new javax.swing.JButton();
         buttonDeleteElement = new javax.swing.JButton();
+        Resultados = new javax.swing.JLabel();
         jLabelFondo3 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -110,10 +112,10 @@ public class CalculoCircutoConImagen extends javax.swing.JFrame {
         getContentPane().add(imageCircuit, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 30, -1, -1));
 
         textoUnides.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        textoUnides.setText("Numero de elementos");
+        textoUnides.setText(updateTextUnit());
         getContentPane().add(textoUnides, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 300, 160, 20));
 
-        nComponetes.setModel(new javax.swing.SpinnerNumberModel(0, 0, 100000, 5));
+        nComponetes.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, 100000.0d, 5.0d));
         nComponetes.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 nComponetesStateChanged(evt);
@@ -129,7 +131,7 @@ public class CalculoCircutoConImagen extends javax.swing.JFrame {
         });
         getContentPane().add(nComponetes, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 330, 68, 34));
 
-        escalaNC.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "E", "P", "T", "G", "M", "k", "h", "da", "d", "c", "m", "µ", "n", "p", "f", "a" }));
+        escalaNC.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "E", "P", "T", "G", "M", "k", " ", "m", "µ", "n", "p", "f", "a" }));
         escalaNC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 escalaNCActionPerformed(evt);
@@ -159,9 +161,17 @@ public class CalculoCircutoConImagen extends javax.swing.JFrame {
         buttonDeleteElement.setVisible(false);
         getContentPane().add(buttonDeleteElement, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 330, 40, 34));
 
+        Resultados.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        Resultados.setText("Resultados");
+        getContentPane().add(Resultados, new org.netbeans.lib.awtextra.AbsoluteConstraints(457, 130, 160, 40));
+
         jLabelFondo3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icons/fondo2.jpg"))); // NOI18N
         jLabelFondo3.setText("jLabel1");
         getContentPane().add(jLabelFondo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 410));
+
+        jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel3.setText("Escala ");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 300, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -195,6 +205,8 @@ public class CalculoCircutoConImagen extends javax.swing.JFrame {
     private void buttonAddElementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddElementActionPerformed
         numElemtos++;
         buttonDeleteElement.setVisible(true);
+        temp=Math.pow(10, (-3 * (escalaNC.getSelectedIndex() - 6)));
+        datos.add((double)nComponetes.getValue()*temp);
         //falta agregar el dato en lista/fila/cola(a preferencia del programador) 
     }//GEN-LAST:event_buttonAddElementActionPerformed
 
@@ -203,6 +215,10 @@ public class CalculoCircutoConImagen extends javax.swing.JFrame {
         if (numElemtos<2){
             buttonDeleteElement.setVisible(false);
         }
+        if (!datos.empty()){
+            System.out.println("Se elimino "+datos.pop());
+        }
+        
         //falta eliminar el dato en lista/fila/cola(a preferencia del programador) 
     }//GEN-LAST:event_buttonDeleteElementActionPerformed
 
@@ -212,6 +228,17 @@ public class CalculoCircutoConImagen extends javax.swing.JFrame {
 
     private void buttonCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCalcularActionPerformed
         // evaluar que la lista/fila/cola(a preferencia del programador) no este vacia, si lo esta gurdar el dato de nComponetesState siempre y cunado se adistinto de cero
+        if (datos.empty())
+            datos.add((double)nComponetes.getValue());
+        
+        if (caseCircuit==1)
+            mensaje("RT serie ",seriesResistencia());           
+        else if (caseCircuit==2)
+            mensaje("RT paralelo",resistenciaParalelo());
+        else if (caseCircuit==3)
+            mensaje("CT Paralelo ",capParalelos());
+        else
+            mensaje("CT serie ",capSerie());
         // evaluar el tipo de circuito, para saber que formula usar con ayuda de la variable caseCircuit
         // pasar los datos almacenados a la funcion hasta que no falte ninguno
         // mostrar el resultado final de la operacion 
@@ -225,6 +252,83 @@ public class CalculoCircutoConImagen extends javax.swing.JFrame {
         
     }//GEN-LAST:event_nComponetesKeyPressed
 
+    private double seriesResistencia() {
+        double result=0;
+        while(!datos.empty())
+            result+=datos.pop();
+        return result;
+    }
+    private double resistenciaParalelo() {
+        System.out.println("calculadorcircutosdev.CalculoCircutoConImagen.ResistenciaParalelo()");
+        if (datos.isEmpty()) {
+            throw new IllegalArgumentException("La pila de resistencias está vacía.");
+        }
+
+        double resistenciaTotalInversa = 0.0;
+
+        // Calcular la resistencia total inversa sumando las inversas de las resistencias individuales
+        while (!datos.isEmpty()) {
+            double resistenciaIndividual = datos.pop();
+            
+            if (resistenciaIndividual <= 0.0) {
+                throw new IllegalArgumentException("Las resistencias deben ser valores positivos.");
+            }
+
+            resistenciaTotalInversa += 1.0 / resistenciaIndividual;
+        }
+
+        // Calcular la resistencia total tomando la inversa del resultado anterior
+        double resistenciaTotal = 1.0 / resistenciaTotalInversa;
+
+        return resistenciaTotal;
+    }
+
+    private double capParalelos() {
+        if (datos.isEmpty()) {
+            throw new IllegalArgumentException("La pila de capacitancias está vacía.");
+        }
+
+        double capacitanciaTotal = 0.0;
+
+        // Sumar las capacitancias individuales para obtener la capacitancia total
+        while (!datos.isEmpty()) {
+            double capacitanciaIndividual = datos.pop();
+
+            if (capacitanciaIndividual <= 0.0) {
+                throw new IllegalArgumentException("Las capacitancias deben ser valores positivos.");
+            }
+
+            capacitanciaTotal += capacitanciaIndividual;
+        }
+
+        return capacitanciaTotal;
+    }
+
+    private double capSerie() {
+        if (datos.isEmpty()) {
+            throw new IllegalArgumentException("La pila de capacitancias está vacía.");
+        }
+
+        double inversoCapacitanciaTotal = 0.0;
+
+        // Calcular la inversa de la capacitancia total sumando las inversas de las capacitancias individuales
+        while (!datos.isEmpty()) {
+            double capacitanciaIndividual = datos.pop();
+
+            if (capacitanciaIndividual <= 0.0) {
+                throw new IllegalArgumentException("Las capacitancias deben ser valores positivos.");
+            }
+
+            inversoCapacitanciaTotal += 1.0 / capacitanciaIndividual;
+        }
+
+        // Calcular la capacitancia total tomando la inversa del resultado anterior
+        double capacitanciaTotal = 1.0 / inversoCapacitanciaTotal;
+
+        return capacitanciaTotal;
+
+    }
+
     private void nComponetesStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_nComponetesStateChanged
         if (!(nComponetes.getValue().equals(0))){
             buttonAddElement.setEnabled(true);
@@ -235,6 +339,7 @@ public class CalculoCircutoConImagen extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Resultados;
     private javax.swing.JButton buttonAddElement;
     private javax.swing.JButton buttonCalcular;
     private javax.swing.JButton buttonDeleteElement;
@@ -243,8 +348,15 @@ public class CalculoCircutoConImagen extends javax.swing.JFrame {
     private javax.swing.JLabel imageCircuit;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabelFondo3;
     private javax.swing.JSpinner nComponetes;
     private javax.swing.JLabel textoUnides;
     // End of variables declaration//GEN-END:variables
+
+    private void mensaje(String text, double value) {
+        Resultados.setText(text+value);
+        Resultados.setVisible(true);
+    }
+
 }
