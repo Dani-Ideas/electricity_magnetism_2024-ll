@@ -42,12 +42,18 @@ public class SeleccionTipoCirciuto extends javax.swing.JFrame {
         capParalelo = new javax.swing.JRadioButton();
         resSerie = new javax.swing.JRadioButton();
         resParalelo = new javax.swing.JRadioButton();
+        jLabelFondo2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(363, 35, -1, -1));
 
-        jLabel2.setText("Seleciona el cicuito");
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
+        jLabel2.setText("Seleciona tu circuito");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, -1, -1));
 
+        buttonRegresarSTC.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         buttonRegresarSTC.setText("Regresar");
         buttonRegresarSTC.setActionCommand("RegresarInicio");
         buttonRegresarSTC.addActionListener(new java.awt.event.ActionListener() {
@@ -55,26 +61,36 @@ public class SeleccionTipoCirciuto extends javax.swing.JFrame {
                 buttonRegresarSTCActionPerformed(evt);
             }
         });
+        getContentPane().add(buttonRegresarSTC, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 110, 50));
 
+        jButton2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jButton2.setText("Salir");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 20, 110, 50));
 
+        jLabel3.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel3.setText("Capacitores");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 170, -1, -1));
 
+        jLabel4.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel4.setText("Resistencias");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 170, -1, -1));
 
+        buttonGenerar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         buttonGenerar.setText("Generar");
         buttonGenerar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonGenerarActionPerformed(evt);
             }
         });
+        getContentPane().add(buttonGenerar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 330, 110, 50));
 
         buttonGroup1.add(capSerie);
+        capSerie.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         capSerie.setSelected(true);
         capSerie.setText("Serie");
         capSerie.addActionListener(new java.awt.event.ActionListener() {
@@ -82,102 +98,41 @@ public class SeleccionTipoCirciuto extends javax.swing.JFrame {
                 capSerieActionPerformed(evt);
             }
         });
+        getContentPane().add(capSerie, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 220, -1, -1));
 
         buttonGroup1.add(capParalelo);
+        capParalelo.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         capParalelo.setText("Paralelo");
         capParalelo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 capParaleloActionPerformed(evt);
             }
         });
+        getContentPane().add(capParalelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 270, -1, -1));
 
         buttonGroup1.add(resSerie);
+        resSerie.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         resSerie.setText("Serie");
         resSerie.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 resSerieActionPerformed(evt);
             }
         });
+        getContentPane().add(resSerie, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 220, -1, -1));
 
         buttonGroup1.add(resParalelo);
+        resParalelo.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         resParalelo.setText("Paralelo");
         resParalelo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 resParaleloActionPerformed(evt);
             }
         });
+        getContentPane().add(resParalelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 270, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(363, 363, 363)
-                        .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(buttonRegresarSTC)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(143, 143, 143)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(capSerie)
-                    .addComponent(capParalelo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 219, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(resSerie)
-                    .addComponent(resParalelo))
-                .addGap(144, 144, 144))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(buttonGenerar)
-                .addGap(305, 305, 305))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(284, 284, 284)
-                .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonRegresarSTC)
-                    .addComponent(jButton2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
-                .addGap(12, 12, 12)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
-                        .addComponent(capSerie)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(capParalelo)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 201, Short.MAX_VALUE)
-                                .addComponent(buttonGenerar)
-                                .addGap(39, 39, 39))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
-                        .addComponent(resSerie)
-                        .addGap(18, 18, 18)
-                        .addComponent(resParalelo)
-                        .addGap(0, 0, Short.MAX_VALUE))))
-        );
+        jLabelFondo2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icons/fondo2.jpg"))); // NOI18N
+        jLabelFondo2.setText("jLabel5");
+        getContentPane().add(jLabelFondo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 410));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -233,6 +188,7 @@ public class SeleccionTipoCirciuto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabelFondo2;
     private javax.swing.JRadioButton resParalelo;
     private javax.swing.JRadioButton resSerie;
     // End of variables declaration//GEN-END:variables
